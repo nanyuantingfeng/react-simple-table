@@ -1,0 +1,386 @@
+[
+  {
+    "name": "state",
+    "label": "审批状态",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "flow",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "specificationId",
+    "label": "单据模板",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "flow",
+    "dataType": {
+      "type": "ref",
+      "entity": "form.Specification.Versioned"
+    }
+  },
+  {
+    "name": "code",
+    "label": "单号",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "flow",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "title",
+    "label": "标题",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "flow",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "submitterId",
+    "label": "提交人",
+    "active": true,
+    "canAsDimension": true,
+    "ability": "flow",
+    "dataType": {
+      "type": "ref",
+      "entity": "organization.Staff"
+    }
+  },
+  {
+    "name": "submitDate",
+    "label": "提交日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "flow",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "writtenOffMoney",
+    "label": "核销金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "writtenOff",
+    "dataType": {
+      "type": "money"
+    }
+  },
+
+  {
+    "name": "requisitionMoney",
+    "label": "申请金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "requisition",
+    "dataType": {
+      "type": "money"
+    }
+  },
+  {
+    "name": "loanDepartment",
+    "label": "借款部门",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "loan",
+    "dataType": {
+      "type": "ref",
+      "entity": "organization.Department"
+    }
+  },
+  {
+    "name": "loanMoney",
+    "label": "借款金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "loan",
+    "dataType": {
+      "type": "money"
+    }
+  },
+  {
+    "name": "loanDate",
+    "label": "借款日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "loan",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "repaymentDate",
+    "label": "还款日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "loan",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "expenseDepartment",
+    "label": "费用承担部门",
+    "active": true,
+    "canAsDimension": true,
+    "ability": "expense",
+    "dataType": {
+      "type": "ref",
+      "entity": "organization.Department"
+    }
+  },
+  {
+    "name": "expenseMoney",
+    "label": "报销金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "expense",
+    "dataType": {
+      "type": "money"
+    }
+  },
+  {
+    "name": "details",
+    "label": "费用明细",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "expense",
+    "dataType": {
+      "type": "list",
+      "elemType": {
+        "type": "complex",
+        "fields": [
+          {
+            "name": "feeTypeForm",
+            "label": "费用明细",
+            "active": true,
+            "canAsDimension": false,
+            "ability": "",
+            "dataType": {
+              "type": "dynamic"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "feeTypeForm",
+    "label": "费用明细",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "feeDetail",
+    "dataType": {
+      "type": "dynamic"
+    }
+  },
+  {
+    "name": "expenseDate",
+    "label": "报销日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "expense",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "payMoney",
+    "label": "支付金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "money"
+    }
+  },
+  {
+    "name": "paymentChannel",
+    "label": "支付方式",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "paymentAccount",
+    "label": "企业账户",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "ref",
+      "entity": "pay.PaymentAccount"
+    }
+  },
+  {
+    "name": "payDate",
+    "label": "支付日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "payerId",
+    "label": "付款人",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "ref",
+      "entity": "organization.Staff"
+    }
+  },
+  {
+    "name": "payeeId",
+    "label": "收款信息",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "pay",
+    "dataType": {
+      "type": "ref",
+      "entity": "pay.PayeeInfo"
+    }
+  },
+  {
+    "name": "feeTypeId",
+    "label": "费用类型",
+    "active": true,
+    "canAsDimension": true,
+    "ability": "feeDetail",
+    "dataType": {
+      "type": "ref",
+      "entity": "flow.FeeType"
+    }
+  },
+  {
+    "name": "amount",
+    "label": "费用金额",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "feeDetail",
+    "dataType": {
+      "type": "money"
+    }
+  },
+  {
+    "name": "sense",
+    "label": "敏感字段",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "项目",
+    "label": "项目",
+    "active": true,
+    "canAsDimension": true,
+    "ability": "",
+    "dataType": {
+      "type": "ref",
+      "entity": "basedata.Dimension.项目"
+    }
+  },
+  {
+    "name": "feeDate",
+    "label": "消费日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "date"
+    }
+  },
+  {
+    "name": "invoice",
+    "label": "发票张数",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "number",
+      "scale": 0,
+      "unit": "张"
+    }
+  },
+  {
+    "name": "description",
+    "label": "描述",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "consumptionReasons",
+    "label": "消费事由",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "attachments",
+    "label": "附件",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "list",
+      "elemType": {
+        "type": "attachment"
+      }
+    }
+  },
+  {
+    "name": "orders",
+    "label": "第三方信息",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "feeDetail",
+    "dataType": {
+      "type": "list",
+      "elemType": {
+        "type": "order"
+      }
+    }
+  },
+  {
+    "name": "datePeriod",
+    "label": "起止日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "dateRange"
+    }
+  },
+  {
+    "name": "feeDatePeriod",
+    "label": "消费起止日期",
+    "active": true,
+    "canAsDimension": false,
+    "ability": "",
+    "dataType": {
+      "type": "dateRange"
+    }
+  }
+]
+ 

@@ -1,0 +1,75 @@
+[
+  {
+    "name": "F1IDBMWCY5Y4YFG08",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "提交人",
+    "canAsDimension": true
+  },
+  {
+    "name": "F1IDBMWCYVJ4YFH8N",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "项目",
+    "canAsDimension": false
+  },
+  {
+    "name": "F1IDBMYXVIA4YFHH1",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "单号",
+    "canAsDimension": true
+  },
+  {
+    "name": "F1IDBMYYAE84YF14I",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "标题",
+    "canAsDimension": true
+  },
+  {
+    "name": "F1IDBMYYBEW4YFI8N",
+    "active": true,
+    "dataType": {
+      "type": "date"
+    },
+    "label": "报销日期",
+    "width" : 800,
+    "canAsDimension": true
+  },
+  {
+    "name": "F1IDBMZ76KJ4YFI3G",
+    "active": false,
+    "dataType": {
+      "type": "decimal"
+    },
+    "label": "报销金额",
+    "canAsDimension": false
+  },
+  {
+    "name": "F1IDBMWCXU44YFH1W",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "报销部门",
+    "canAsDimension": true
+  },
+  {
+    "name": "F1IDBMWCYHL4YFIQQ",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "消费类型",
+    "canAsDimension": true
+  }
+] 

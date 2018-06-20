@@ -1,0 +1,87 @@
+/**************************************************
+ * Created by nanyuantingfeng on 12/09/2017 15:45.
+ **************************************************/
+
+.scenesWrapper {
+  display: flex;
+  padding: 10px 16px 10px 0;
+
+  .scenes {
+    flex: 1;
+  }
+
+  label {
+    flex-shrink: 0;
+    line-height: 28px;
+    padding-right: 16px;
+    color: #333333;
+  }
+
+  a {
+    display: inline-block;
+    margin: 3px 4px;
+    padding: 3px 8px;
+    color: #333333;
+  }
+
+  .active {
+    color: #FFFFFF;
+    border-radius: 2px;
+    background-color: #32B5C5;
+  }
+
+  .edit-button {
+    display: inline-block;
+    font-size: 12px;
+    color: #32b5c5;
+
+    img {
+      vertical-align: -3px;
+      margin-right: 4px;
+    }
+  }
+}
+
+.menu_wrapper {
+  max-height: 350px;
+  overflow: auto;
+  :global {
+    .ant-dropdown-menu-item {
+      padding: 12px 16px;
+    }
+    .ant-dropdown-menu-item-divider {
+      border-radius: 4px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06);
+    }
+  }
+}
+
+.scence_title {
+  margin-right: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.44;
+  color: #262626;
+}
+
+.scence_item {
+  width: 240px;
+  margin-left: 16px;
+  font-size: 14px;
+  line-height: 1.57;
+  color: #262626;
+}
+
+.scence_item_edit {
+  font-size: 14px;
+  line-height: 1.57;
+  text-align: justify;
+  color: #32b5c5;
+}
+
+.scence_title_wrapper {
+  margin-right: 24px;
+}
+
+

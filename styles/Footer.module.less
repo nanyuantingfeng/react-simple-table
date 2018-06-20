@@ -1,0 +1,37 @@
+/**************************************************
+ * Created by nanyuantingfeng on 12/09/2017 18:26.
+ **************************************************/
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  border: 1px solid #DCDCDC;
+  background-color: #ffffff;
+
+  .body {
+    flex: 1;
+    width: 100%;
+    padding: 4px;
+  }
+
+  .buttons {
+    height: 37px;
+    border-top: 1px solid #DCDCDC;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      width: 50%;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: center;
+      &:first-child {
+        color: #32b5c5;
+      }
+    }
+  }
+}
