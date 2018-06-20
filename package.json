@@ -1,5 +1,5 @@
 {
-  "name": "react-simple-table",
+  "name": "react-simple-dg",
   "version": "1.0.0-beta.0",
   "author": "nanyuantingfeng",
   "description": "simple table base on antd",
@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "hollow dev -p 9978",
     "build": "babel ./src -d ./lib",
-    "publish2npm": "npm run clean && npm run build && npm publish .",
+    "publish2npm": "npm run clean && npm run build && npm publish",
     "clean": "rm -rf ./lib",
     "test": "jest"
   },
