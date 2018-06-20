@@ -3,8 +3,14 @@
  **************************************************/
 .wrapper {
   height: 600px;
-  border-radius: 6px;
   border: 1px solid #DCDCDC;
+
+  :global {
+    .ant-table-bordered .ant-table-header > table, .ant-table-bordered .ant-table-body > table, .ant-table-bordered .ant-table-fixed-left table, .ant-table-bordered .ant-table-fixed-right table {
+      border: none;
+    }
+  }
+
 }
 
 .table_select_row_bg {
@@ -16,4 +22,4 @@
   background-color: white;
 }
 
- 
+

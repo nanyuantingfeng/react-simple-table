@@ -1,109 +1,64 @@
 /**************************************************
  * Created by nanyuantingfeng on 07/09/2017 17:10.
  **************************************************/
-import React from 'react'
-import { parseMeta2ColumnOthers } from './columnOthers'
+import React from 'react';
+import { parseMeta2ColumnOthers } from './columnOthers';
 
-const faker = require('faker')
+const faker = require('faker');
 
 export function createFakeData(page, pageSize) {
-  page = page === 0 ? 1 : page
-  let oo = []
-  let i = page * pageSize
+  page = page === 0 ? 1 : page;
+  let oo = [];
+  let i = page * pageSize;
   while (++i <= ((page + 1) * pageSize)) {
     oo.push({
       id: i,
-      state: 'draft',
-      flowId: {
-        id: (i + 7000),
-        form: {
-          specificationId: faker.random.words(),
-          code: faker.random.number(),
-          title: faker.random.words(),
-          submitterId: faker.random.words(),
-          submitDate: faker.date.future(),
-          writtenOffMoney: faker.finance.amount(),
-          loanDepartment: faker.random.words(),
-          loanMoney: faker.finance.amount(),
-          loanDate: faker.date.future(),
-          datePeriod: [faker.date.future(), faker.date.future()],
-          feeDatePeriod: [faker.date.future(), faker.date.future()],
-        }
-      }
-    })
+      a: faker.random.words(),
+      b: faker.random.words(),
+      c: faker.random.number(),
+      d: faker.random.words(),
+      e: faker.random.words(),
+      f: faker.date.future(),
+      g: faker.finance.amount(),
+      h: faker.random.words(),
+      i: faker.date.future(),
+    });
   }
-  return oo
+  return {count: 200, items: oo};
 }
 
 const all = [
-  'title',
-  'code',
-  'specificationId',
-  'submitDate',
-  'submitterId',
-  'state',
-  'amount',
-  'action',
-]
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+];
 
-const expense = [
-  'title',
-  'code',
-  'specificationId',
-  'expenseDate',
-  'submitterId',
-  'expenseDepartment',
-  'state',
-  'expenseMoney',
-  'action',
-]
-
-const loan = [
-  'title',
-  'code',
-  'specificationId',
-  'loanDate',
-  'submitterId',
-  'loanDepartment',
-  'state',
-  'loanMoney',
-  'action',
-]
-
-const requisition = [
-  'title',
-  'code',
-  'specificationId',
-  'requisitionDate',
-  'submitterId',
-  'requisitionDepartment',
-  'state',
-  'requisitionMoney',
-  'action',
-]
-
-const mapper = { all, expense, loan, requisition, }
+const mapper = {all};
 
 const prefixExclude = [
   'state',
   'action',
-]
-
-const COLUMN_PROPERTY_MAPPING = {}
+];
 
 function prefix(name, prefixPath) {
   if (!prefixPath || !!~prefixExclude.indexOf(name)) {
-    return name
+    return name;
   }
-  return `${prefixPath}.${name}`
+  return `${prefixPath}.${name}`;
 }
 
 function parseMeta2Column(property, prefixPath) {
-  const { name, label, dataType } = property
-  const { type } = dataType
-  const dataIndex = prefix(name, prefixPath)
-  const others = parseMeta2ColumnOthers(name, property)
-  COLUMN_PROPERTY_MAPPING[dataIndex] = property
+  const {name, label, width, dataType} = property;
+  const {type} = dataType;
+  const dataIndex = prefix(name, prefixPath);
+  const others = parseMeta2ColumnOthers(name, property);
 
   return {
     title: label,
@@ -113,31 +68,20 @@ function parseMeta2Column(property, prefixPath) {
     key: dataIndex,
     sorter: true,
     label,
+    width,
     value: dataIndex,
     property,
     ...others,
-  }
+  };
 }
 
 export function createColumns(baseDataProperties = [], prefixPath) {
-  return baseDataProperties.map(line => parseMeta2Column(line, prefixPath))
-}
-
-export function createFixedColumns(baseDataProperties = [], prefixPath, fixedColumns = {}) {
-  return baseDataProperties.map((line, index) => {
-    const fixedColumnKeys = Object.keys(fixedColumns)
-    let column = parseMeta2Column(line, prefixPath)
-    if (!!~fixedColumnKeys.indexOf(column.dataIndex)) {
-      column.fixed = fixedColumns[column.dataIndex]
-    }
-    column.width = 200
-    return column
-  })
+  return baseDataProperties.map(line => parseMeta2Column(line, prefixPath));
 }
 
 export function createColumnsSwitcherDataIndexes(type, prefixPath) {
-  const array = mapper[type] || mapper['all']
-  return array.map(line => prefix(line, prefixPath))
+  const array = mapper[type];
+  return array.map(line => prefix(line, prefixPath));
 }
 
 export function createActionColumn(bus) {
@@ -149,15 +93,14 @@ export function createActionColumn(bus) {
     key: 'action',
     label: '操作',
     value: 'action',
-    fixed: 'right',
     className: 'actions-wrapper',
     render(text, line) {
       return (
         <div className="actions" onClick={e => {
-          e.nativeEvent.stopImmediatePropagation()
-          e.stopPropagation()
-          e.preventDefault()
-          return false
+          e.nativeEvent.stopImmediatePropagation();
+          e.stopPropagation();
+          e.preventDefault();
+          return false;
         }}>
           <a className="ant-dropdown-link mr-16"
              onClick={e => bus.emit('table:row:action', 3 /*'agree'*/, line)}>同意</a>
@@ -166,14 +109,10 @@ export function createActionColumn(bus) {
           <a className="print"
              onClick={e => bus.emit('table:row:action', 8 /*'print'*/, line)}>打印</a>
         </div>
-      )
+      );
     }
-  }
-}
-
-export function getColumnPropertyMapping() {
-  return COLUMN_PROPERTY_MAPPING
+  };
 }
 
 
- 
+

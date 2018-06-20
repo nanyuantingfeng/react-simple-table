@@ -28,3 +28,8 @@ fabric.properties
 
 node_modules
 .idea/
+
+demo/
+webpack.config.js
+
+cp2.js

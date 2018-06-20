@@ -4,7 +4,7 @@
 import styles from '../../styles/DataGrid.module.less'
 import React, { PureComponent } from 'react'
 import { Pagination } from 'antd'
-import { MessageCenter } from 'ekb-messagecenter'
+import MessageCenter  from 'message-center.js'
 import TableWrapper from './TableWrapper'
 import Buttons from './Buttons'
 import SelectAllBtn from './SelectAllBtn'

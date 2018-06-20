@@ -1,0 +1,67 @@
+[
+  {
+    "name": "a",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  },
+  {
+    "name": "b",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  },
+  {
+    "name": "c",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  },
+  {
+    "name": "d",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  },
+  {
+    "name": "e",
+    "active": true,
+    "dataType": {
+      "type": "date"
+    },
+    "label": "date",
+    "width": 800
+  },
+  {
+    "name": "f",
+    "active": false,
+    "dataType": {
+      "type": "money"
+    },
+    "label": "money"
+  },
+  {
+    "name": "g",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  },
+  {
+    "name": "h",
+    "active": true,
+    "dataType": {
+      "type": "text"
+    },
+    "label": "text"
+  }
+]
