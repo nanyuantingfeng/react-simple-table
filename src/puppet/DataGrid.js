@@ -1,27 +1,27 @@
 /**************************************************
  * Created by nanyuantingfeng on 12/09/2017 11:51.
  **************************************************/
-import styles from '../../styles/DataGrid.module.less'
-import React, { PureComponent } from 'react'
-import { Pagination } from 'antd'
-import MessageCenter  from 'message-center.js'
-import TableWrapper from './TableWrapper'
-import Buttons from './Buttons'
-import SelectAllBtn from './SelectAllBtn'
-import Scenes from './Scenes'
-import ColumnsSwitcher from './ColumnsSwitcher'
-import { mergeOthers2Columns } from './util'
-import clone from 'clone'
-import deepEqual from 'deep-equal'
-import SearchInput from './SearchInput'
+import styles from '../../styles/DataGrid.module.less';
+import React, { PureComponent } from 'react';
+import { Pagination } from 'antd';
+import MessageCenter from 'message-center.js';
+import TableWrapper from './TableWrapper';
+import Buttons from './Buttons';
+import SelectAllBtn from './SelectAllBtn';
+import Scenes from './Scenes';
+import ColumnsSwitcher from './ColumnsSwitcher';
+import { mergeOthers2Columns } from './util';
+import clone from 'clone';
+import deepEqual from 'deep-equal';
+import SearchInput from './SearchInput';
 
 function getRowKeyFn(rowKey) {
 
   if (typeof rowKey === 'string') {
-    return (record) => record[rowKey]
+    return (record) => record[rowKey];
   }
 
-  return rowKey
+  return rowKey;
 }
 
 export default class DataGrid extends PureComponent {
@@ -36,7 +36,7 @@ export default class DataGrid extends PureComponent {
     isMultiSelect: true,
     isButtonsBindMultiSelect: true,
     fetchParams: {
-      page: { currentPage: 1, pageSize: 10 },
+      page: {currentPage: 1, pageSize: 10},
       searchText: '',
       filters: {},
       sorters: {},
@@ -46,26 +46,26 @@ export default class DataGrid extends PureComponent {
     wrapperStyle: {},
     wrapperHeaderContentStyle: {},
     wrapperColumnsSwitcherStyle: {},
-  }
+  };
 
-  scenesBox = null
+  scenesBox = null;
 
   constructor(props, ...args) {
-    super(props, ...args)
-    this.bus = props.bus || new MessageCenter()
+    super(props, ...args);
+    this.bus = props.bus || new MessageCenter();
 
     const {
-            loading, dataSource,
-            total, selectedRowKeys,
-            fetchParams,
-            scenes,
-            columnsSwitcherSelectedDataIndexes,
-            rowKey,
-          } = props
+      loading, dataSource,
+      total, selectedRowKeys,
+      fetchParams,
+      scenes,
+      columnsSwitcherSelectedDataIndexes,
+      rowKey,
+    } = props;
 
     const activeScene = Array.isArray(scenes)
       ? scenes.find(scene => scene.active) || {}
-      : {}
+      : {};
 
     this.state = {
       loading,
@@ -80,55 +80,55 @@ export default class DataGrid extends PureComponent {
       headerHeight: 54,
       isShowMoreScenes: false,
       columnsSwitcherSelectedDataIndexes
-    }
+    };
 
-    this.__rowKeyFn = getRowKeyFn(rowKey)
-    this.__registerAPI2Bus()
+    this.__rowKeyFn = getRowKeyFn(rowKey);
+    this.__registerAPI2Bus();
   }
 
-  __selectedRowData = {}
+  __selectedRowData = {};
 
   __registerAPI2Bus() {
-    this.bus.getSelectedRowKeys = () => this.state.selectedRowKeys.slice(0)
+    this.bus.getSelectedRowKeys = () => this.state.selectedRowKeys.slice(0);
 
     this.bus.clearSelectedRowKeys = () => {
-      this.setState({ selectedRowKeys: [] })
-      this.__selectedRowData = {}
-    }
+      this.setState({selectedRowKeys: []});
+      this.__selectedRowData = {};
+    };
 
-    this.bus.reload = (params) => this.fetch(params)
-    this.bus.scenesChange = this.handleScenesClick
-    this.bus.getFetchParams = () => clone(this.state.fetchParams)
+    this.bus.reload = (params) => this.fetch(params);
+    this.bus.scenesChange = this.handleScenesClick;
+    this.bus.getFetchParams = () => clone(this.state.fetchParams);
     this.bus.getSelectedRowData = () => {
-      const keys = this.state.selectedRowKeys.slice(0)
-      const oo = {}
-      keys.forEach(key => oo[key] = this.__selectedRowData[key])
-      return clone(oo)
-    }
+      const keys = this.state.selectedRowKeys.slice(0);
+      const oo = {};
+      keys.forEach(key => oo[key] = this.__selectedRowData[key]);
+      return clone(oo);
+    };
   }
 
   componentWillMount() {
-    this.bus.on('pagination:changed', this.handlePagination)
-    this.bus.on('column:filter', this.handleColumnFilter)
-    this.bus.on('column:sort', this.handleColumnSort)
-    this.bus.watch('get:column:checked:value', this.handleGetColumnChecked)
+    this.bus.on('pagination:changed', this.handlePagination);
+    this.bus.on('column:filter', this.handleColumnFilter);
+    this.bus.on('column:sort', this.handleColumnSort);
+    this.bus.watch('get:column:checked:value', this.handleGetColumnChecked);
   }
 
   componentDidUpdate() {
     const headerHeight = this.scenesBox &&
-                         this.scenesBox.children &&
-                         this.scenesBox.children.length > 0 &&
-                         this.scenesBox.children[0].offsetHeight || 0
+      this.scenesBox.children &&
+      this.scenesBox.children.length > 0 &&
+      this.scenesBox.children[0].offsetHeight || 0;
     if (headerHeight > 54) {
-      this.setState({ headerHeight })
+      this.setState({headerHeight});
     }
   }
 
   componentWillUnmount() {
-    this.bus.un('pagination:changed', this.handlePagination)
-    this.bus.un('column:filter', this.handleColumnFilter)
-    this.bus.un('column:sort', this.handleColumnSort)
-    this.bus.un('get:column:checked:value', this.handleGetColumnChecked)
+    this.bus.un('pagination:changed', this.handlePagination);
+    this.bus.un('column:filter', this.handleColumnFilter);
+    this.bus.un('column:sort', this.handleColumnSort);
+    this.bus.un('get:column:checked:value', this.handleGetColumnChecked);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -137,73 +137,73 @@ export default class DataGrid extends PureComponent {
       this.setState({
         dataSource: nextProps.dataSource,
         selectedRowKeys: [], //数据源更新 说明当前控件重新渲染了
-      })
+      });
 
-      this.__selectedRowData = {}
+      this.__selectedRowData = {};
     }
 
     if (this.props.total !== nextProps.total) {
-      this.setState({ total: nextProps.total })
+      this.setState({total: nextProps.total});
     }
 
     if (this.props.columns !== nextProps.columns) {
-      this.setState({ columns: this::mergeOthers2Columns(nextProps.columns) })
+      this.setState({columns: mergeOthers2Columns.call(this, nextProps.columns)});
     }
 
-    const { columnsSwitcherSelectedDataIndexes } = nextProps
+    const {columnsSwitcherSelectedDataIndexes} = nextProps;
 
     if (!deepEqual(this.props.columnsSwitcherSelectedDataIndexes, columnsSwitcherSelectedDataIndexes)) {
-      this.setState({ columnsSwitcherSelectedDataIndexes })
+      this.setState({columnsSwitcherSelectedDataIndexes});
     }
   }
 
   fetch(params) {
-    const { fetch } = this.props
-    this.setState({ loading: true })
-    const { fetchParams } = this.state
-    params = { ...fetchParams, ...params }
+    const {fetch} = this.props;
+    this.setState({loading: true});
+    const {fetchParams} = this.state;
+    params = {...fetchParams, ...params};
     return fetch(params).then(data => {
-      const { dataSource, total } = data
+      const {dataSource, total} = data;
       this.setState({
         loading: false,
         fetchParams: params,
         dataSource,
         total,
-      })
-    })
+      });
+    });
   }
 
-  handleInputSearch = ({ target: { value } }) => {
-    const { pageSize } = this.props
-    const oo = { searchText: value }
+  handleInputSearch = ({target: {value}}) => {
+    const {pageSize} = this.props;
+    const oo = {searchText: value};
     if (this.__SEARCHTEXT_IS_OLD) { //当二级条件变更, 清空三级条件
-      oo.filters = {}
-      oo.sorters = {}
+      oo.filters = {};
+      oo.sorters = {};
       oo.page = {
         currentPage: 1,
         pageSize
-      }
+      };
     }
 
     this.fetch(oo).then(() => {
-      this.__SEARCHTEXT_IS_OLD = false
-      this.setState({ currentPage: 1 })
-    })
-  }
+      this.__SEARCHTEXT_IS_OLD = false;
+      this.setState({currentPage: 1});
+    });
+  };
 
-  handleInputSearchChange = ({ target: { value } }) => {
-    let { fetchParams } = this.state
-    fetchParams = { ...fetchParams, searchText: value }
-    this.setState({ fetchParams }, () => {
-      this.__SEARCHTEXT_IS_OLD = true
-    })
-  }
+  handleInputSearchChange = ({target: {value}}) => {
+    let {fetchParams} = this.state;
+    fetchParams = {...fetchParams, searchText: value};
+    this.setState({fetchParams}, () => {
+      this.__SEARCHTEXT_IS_OLD = true;
+    });
+  };
 
   handleScenesClick = (scene) => {
-    const { fetchParams } = this.state
-    const { onSceneChange, pageSize } = this.props
-    onSceneChange && onSceneChange(scene)
-    let oo = { scene }
+    const {fetchParams} = this.state;
+    const {onSceneChange, pageSize} = this.props;
+    onSceneChange && onSceneChange(scene);
+    let oo = {scene};
     if (fetchParams.scene !== scene) {
       oo = {
         scene,
@@ -214,139 +214,141 @@ export default class DataGrid extends PureComponent {
         searchText: '',
         sorters: {},
         filters: {},
-      }
-      this.setState({ selectedRowKeys: [], fetchParams: oo, currentPage: 1 }) //Scene切换 清空选择的列
-      this.handleInputSearchChange({ target: { value: '' } })
+      };
+      this.setState({selectedRowKeys: [], fetchParams: oo, currentPage: 1}); //Scene切换 清空选择的列
+      this.handleInputSearchChange({target: {value: ''}});
     }
-    this.fetch(oo)
-  }
+    this.fetch(oo);
+  };
 
   handleColumnSort = (sorter) => {
-    const { columnKey, field, order } = sorter
-    const sorters = {}
+    const {columnKey, field, order} = sorter;
+    const sorters = {};
     if (columnKey && order) {
-      sorters[columnKey] = order
+      sorters[columnKey] = order;
     }
-    this.fetch({ sorters })
-  }
+    this.fetch({sorters});
+  };
 
   handleGetColumnChecked = () => {
-    let { columnsSwitcherSelectedDataIndexes } = this.state
-    return columnsSwitcherSelectedDataIndexes
-  }
+    let {columnsSwitcherSelectedDataIndexes} = this.state;
+    return columnsSwitcherSelectedDataIndexes;
+  };
 
   handleColumnFilter = (text, columnName) => {
-    let { fetchParams } = this.state
-    let { filters, page } = fetchParams
-    filters = { ...filters, [columnName]: text }
-    page = { ...page, currentPage: 1 }
-    this.fetch({ filters, page })
-    this.setState({ currentPage: 1 })
-  }
+    let {fetchParams} = this.state;
+    let {filters, page} = fetchParams;
+    filters = {...filters, [columnName]: text};
+    page = {...page, currentPage: 1};
+    this.fetch({filters, page});
+    this.setState({currentPage: 1});
+  };
 
   handlePaginationChanged = (page, pageSize) => {
-    this.bus.emit('pagination:changed', page, pageSize)
-  }
+    this.bus.emit('pagination:changed', page, pageSize);
+  };
 
   handlePagination = (currentPage, pageSize) => {
-    this.setState({ currentPage })
-    this.fetch({ page: { currentPage, pageSize } })
-  }
+    this.setState({currentPage});
+    this.fetch({page: {currentPage, pageSize}});
+  };
 
   handleSelectChange = (selectedRowKeys, selectedRowData) => {
-    this.setState({ selectedRowKeys })
-    const rowKeyFn = this.__rowKeyFn
+    this.setState({selectedRowKeys});
+    const rowKeyFn = this.__rowKeyFn;
     selectedRowData.forEach(line => {
-      this.__selectedRowData[rowKeyFn(line)] = line
-    })
-    this.bus.emit('select:change', selectedRowKeys, this.__selectedRowData)
-  }
+      this.__selectedRowData[rowKeyFn(line)] = line;
+    });
+    this.bus.emit('select:change', selectedRowKeys, this.__selectedRowData);
+  };
 
   handleFooterButtonsClick = (meta) => {
-    this.bus.emit('buttons:click', meta)
-  }
+    this.bus.emit('buttons:click', meta);
+  };
 
   handleSelectAllBtnClick = () => {
-    this.bus.emit('selectAllBtn:click')
-  }
+    this.bus.emit('selectAllBtn:click');
+  };
 
   handleColumnsSwitch = (columnsSwitcherSelectedDataIndexes) => {
-    this.setState({ columnsSwitcherSelectedDataIndexes })
-    let { onColumnsSwitcherChange } = this.props
-    onColumnsSwitcherChange && onColumnsSwitcherChange(columnsSwitcherSelectedDataIndexes)
-  }
+    this.setState({columnsSwitcherSelectedDataIndexes});
+    let {onColumnsSwitcherChange} = this.props;
+    onColumnsSwitcherChange && onColumnsSwitcherChange(columnsSwitcherSelectedDataIndexes);
+  };
 
   handleMoreScenesSwitch = () => {
-    const { isShowMoreScenes } = this.state
-    this.setState({ isShowMoreScenes: !isShowMoreScenes })
-  }
+    const {isShowMoreScenes} = this.state;
+    this.setState({isShowMoreScenes: !isShowMoreScenes});
+  };
 
   render() {
     const {
-            buttons, scenes, columns, noScene,
-            isMultiSelect, isButtonsBindMultiSelect,
-            searchPlaceholder,
-            pageSize,
-            menuBarView,
-            selectAllBtnStyles,
-            onEditScenes,
-            scroll,
-            active,
-            getCheckboxProps,
-            renderCustomButtonsLabel,
-            disabledHeader,
-            disabledSwitcher,
-            wrapperStyle,
-            wrapperHeaderContentStyle,
-            wrapperColumnsSwitcherStyle,
-            ...others
-          } = this.props
+      buttons, scenes, columns, noScene,
+      isMultiSelect, isButtonsBindMultiSelect,
+      searchPlaceholder,
+      pageSize,
+      menuBarView,
+      selectAllBtnStyles,
+      onEditScenes,
+      scroll,
+      active,
+      getCheckboxProps,
+      renderCustomButtonsLabel,
+      disabledHeader,
+      disabledSwitcher,
+      wrapperStyle,
+      wrapperHeaderContentStyle,
+      wrapperColumnsSwitcherStyle,
+      ...others
+    } = this.props;
 
-    const bus = this.bus
+    const bus = this.bus;
 
     const {
-            dataSource, total, loading,
-            selectedRowKeys,
-            fetchParams,
-            columnsSwitcherSelectedDataIndexes,
-            currentPage,
-            headerHeight,
-            isShowMoreScenes,
-          } = this.state
+      dataSource, total, loading,
+      selectedRowKeys,
+      fetchParams,
+      columnsSwitcherSelectedDataIndexes,
+      currentPage,
+      headerHeight,
+      isShowMoreScenes,
+    } = this.state;
 
-    const { sorters, searchText } = fetchParams
+    const {sorters, searchText} = fetchParams;
 
-    const columns2 = this::mergeOthers2Columns(columns, sorters)
+    const columns2 = mergeOthers2Columns.call(this, columns, sorters);
 
-    let rowSelection = null
+    let rowSelection = null;
 
     if (isMultiSelect) {
-      rowSelection = { selectedRowKeys, onChange: this.handleSelectChange }
+      rowSelection = {selectedRowKeys, onChange: this.handleSelectChange};
     }
 
     if (getCheckboxProps) {
-      rowSelection.getCheckboxProps = getCheckboxProps
+      rowSelection.getCheckboxProps = getCheckboxProps;
     }
 
-    const ColumnsSwitcherTop = isShowMoreScenes ? (headerHeight + 1) : 50
-    const headerContentStyle = isShowMoreScenes ? {height: 'auto', ...wrapperColumnsSwitcherStyle} : wrapperHeaderContentStyle
-    const moreBtnClass = isShowMoreScenes ? 'moreButtonUp' : 'moreButtonDown'
-    const fixScroll = isShowMoreScenes ? Object.assign({}, scroll, { y: scroll.y - headerHeight + 49 }) : scroll
+    const ColumnsSwitcherTop = isShowMoreScenes ? (headerHeight + 1) : 50;
+    const headerContentStyle = isShowMoreScenes ? {height: 'auto', ...wrapperColumnsSwitcherStyle} : wrapperHeaderContentStyle;
+    const moreBtnClass = isShowMoreScenes ? 'moreButtonUp' : 'moreButtonDown';
+    const fixScroll = isShowMoreScenes ? Object.assign({}, scroll, {y: scroll.y - headerHeight + 49}) : scroll;
 
     return (
       <div className={styles.dataGridWrapper} style={wrapperStyle}>
 
         {!disabledSwitcher &&
-         <ColumnsSwitcher style={wrapperColumnsSwitcherStyle}
-                          top={ColumnsSwitcherTop}
-                          bus={bus}
-                          dataSource={columns2}
-                          selectedDataIndexes={columnsSwitcherSelectedDataIndexes}
-                          onChange={this.handleColumnsSwitch}
-         />}
+        <ColumnsSwitcher style={wrapperColumnsSwitcherStyle}
+                         top={ColumnsSwitcherTop}
+                         bus={bus}
+                         dataSource={columns2}
+                         selectedDataIndexes={columnsSwitcherSelectedDataIndexes}
+                         onChange={this.handleColumnsSwitch}
+        />}
 
-        {!disabledHeader && <div className={styles.headerContent} style={headerContentStyle}>
-          <div className={styles.scenesBox} ref={scenesBox => {this.scenesBox = scenesBox}}>
+        {!disabledHeader &&
+        <div className={styles.headerContent} style={headerContentStyle}>
+          <div className={styles.scenesBox}
+               ref={scenesBox => {this.scenesBox = scenesBox;}}>
             {
               (scenes && scenes.length || onEditScenes) && (
                 <Scenes
@@ -375,8 +377,8 @@ export default class DataGrid extends PureComponent {
                 value={searchText}
                 placeholder={searchPlaceholder}
                 onChange={this.handleInputSearchChange}
-                onSearch={(value) => this.handleInputSearch({ target: { value } })}
-                onClear={() => this.handleInputSearch({ target: { value: '' } })}
+                onSearch={(value) => this.handleInputSearch({target: {value}})}
+                onClear={() => this.handleInputSearch({target: {value: ''}})}
                 onPressEnter={this.handleInputSearch}
               />
             </div>
@@ -428,7 +430,7 @@ export default class DataGrid extends PureComponent {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

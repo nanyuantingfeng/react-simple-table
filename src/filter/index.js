@@ -2,41 +2,41 @@
  * Created by nanyuantingfeng on 12/09/2017 16:29.
  **************************************************/
 
-import { createTextFilter } from './createTextFilter'
-import { createDateRangeFilter } from './createDateRangeFilter'
-import { createListFilter } from './createListFilter'
-import { createNumberRangeFilter } from './createNumberRangeFilter'
+import { createTextFilter } from './createTextFilter';
+import { createDateRangeFilter } from './createDateRangeFilter';
+import { createListFilter } from './createListFilter';
+import { createNumberRangeFilter } from './createNumberRangeFilter';
 
-export function getFilterFn (type) {
+export function getFilterFn(type) {
 
   switch (type) {
     case 'date' :
     case 'shortdate' :
     case 'dateRange' :
-      return createDateRangeFilter
+      return createDateRangeFilter;
     case 'list' :
-      return createListFilter
+      return createListFilter;
     case 'number' :
     case 'money' :
-      return createNumberRangeFilter
+      return createNumberRangeFilter;
     default:
-      return createTextFilter
+      return createTextFilter;
   }
 
 }
 
-export function parseFilter (line) {
-  const {filterType, dataIndex, filterDataSource} = line
+export function parseFilter(line) {
+  const {filterType, dataIndex, filterDataSource} = line;
   if (!filterType) {
-    return void 0
+    return void 0;
   }
-  const fn = getFilterFn(filterType)
-  return this::fn(dataIndex, filterDataSource)
+  const fn = getFilterFn(filterType);
+  return fn.call(this, dataIndex, filterDataSource);
 }
 
-export function mergeFiltersInColumns (columns) {
+export function mergeFiltersInColumns(columns) {
   return columns.map(line => {
-    const oo = this::parseFilter(line)
-    return {...line, ...oo}
-  })
+    const oo = parseFilter.call(this, line);
+    return {...line, ...oo};
+  });
 }

@@ -31,5 +31,6 @@ node_modules
 
 demo/
 webpack.config.js
+src/
 
 cp2.js

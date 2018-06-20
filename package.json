@@ -1,12 +1,13 @@
 {
   "name": "react-simple-table",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "author": "nanyuantingfeng",
   "description": "simple table base on antd",
   "main": "./lib/index.js",
   "scripts": {
     "dev": "hollow dev -p 9978",
-    "publish2npm": "npm publish",
+    "build": "babel ./src -d ./lib",
+    "publish2npm": "npm run clean && npm run build && npm publish .",
     "clean": "rm -rf ./lib",
     "test": "jest"
   },
@@ -32,7 +33,7 @@
   },
   "directories": {
     "example": "example",
-    "test": "test"
+    "lib": "lib"
   },
   "repository": {
     "type": "git",
@@ -41,5 +42,9 @@
   "bugs": {
     "url": "https://github.com/nanyuantingfeng/react-simple-table/issues"
   },
-  "homepage": "https://github.com/nanyuantingfeng/react-simple-table#readme"
+  "homepage": "https://github.com/nanyuantingfeng/react-simple-table#readme",
+  "keywords": [
+    "table",
+    "react"
+  ]
 }
