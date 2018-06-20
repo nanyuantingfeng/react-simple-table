@@ -31,10 +31,6 @@
     "react-dom": "^16.4.1",
     "react-highlight-words": "^0.11.0"
   },
-  "directories": {
-    "example": "example",
-    "lib": "lib"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nanyuantingfeng/react-simple-table.git"
