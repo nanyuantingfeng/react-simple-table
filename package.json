@@ -1,6 +1,6 @@
 {
   "name": "react-simple-dg",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "author": "nanyuantingfeng",
   "description": "simple table base on antd",
   "main": "./lib/index.js",
