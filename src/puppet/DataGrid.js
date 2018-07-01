@@ -328,7 +328,7 @@ export default class DataGrid extends PureComponent {
       rowSelection.getCheckboxProps = getCheckboxProps;
     }
 
-    const ColumnsSwitcherTop = isShowMoreScenes ? (headerHeight + 1) : 50;
+    const ColumnsSwitcherTop = isShowMoreScenes ? (headerHeight + 1) : (disabledHeader ? 0 : 50);
     const headerContentStyle = isShowMoreScenes ? {height: 'auto', ...wrapperColumnsSwitcherStyle} : wrapperHeaderContentStyle;
     const moreBtnClass = isShowMoreScenes ? 'moreButtonUp' : 'moreButtonDown';
     const fixScroll = isShowMoreScenes ? Object.assign({}, scroll, {y: scroll.y - headerHeight + 49}) : scroll;
